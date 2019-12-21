@@ -14,7 +14,7 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="<?php echo base_url('assets/template/backend/') ?>bower_components/Ionicons/css/ionicons.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="<?php echo base_url('assets/template/backend/') ?>dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="<?php echo base_url('assets/template/backend/') ?>dist/css/adminlte.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
         folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="<?php echo base_url('assets/template/backend/') ?>dist/css/skins/_all-skins.min.css">
