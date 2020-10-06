@@ -28,19 +28,20 @@ class Datatabel {
         $render = function($record, $value, $meta){
             return $meta['offset'] + 1;
         };
-        $this->addDtHandler(0, '', false, false, $render);
+        $this->addDtHandler(0, '', false, false, false, $render);
     }
 
-    public function addDtDb($dtIndex, $dbField, $orderable = true, $searchable = true, $render = null)
+    public function addDtDb($dtIndex, $dbField, $orderable = true, $searchable = true, $json, $render = null)
     {
-        $this->addDtHandler($dtIndex, $dbField, $orderable, $searchable, $render);
+        $this->addDtHandler($dtIndex, $dbField, $orderable, $searchable, $json, $render);
     }
 
-    private function addDtHandler($dtIndex, $dbField = null, $orderable = true, $searchable = true, $render = null){
+    private function addDtHandler($dtIndex, $dbField = null, $orderable = true, $searchable = true, $json, $render){
         $dtHandler = [];
         $dtHandler['dbField'] = $dbField;
         $dtHandler['orderable'] = isset($dbField) ? $orderable : false;
         $dtHandler['searchable'] = isset($dbField) ? $searchable : false;
+        $dtHandler['JSON'] = isset($json) ? $json : false;
         $dtHandler['render'] = function ($record, $value, $meta) {
             return $value;
         };
@@ -282,7 +283,12 @@ class DefaultDatatabelModel implements DatatabelModel {
                     } else {
                         $value = $dtHandlerRender;
                     }
-                    $renderRow[$j] = cleanString($value);
+
+                    if($dtHandler['JSON'] == false){
+                        $renderRow[$j] = cleanString($value);
+                    } else {
+                        $renderRow[$j] = $value;
+                    }
                 }
             }
             $renderRecords[] = $renderRow;

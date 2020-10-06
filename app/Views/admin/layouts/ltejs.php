@@ -32,7 +32,7 @@
 <!-- pace-progress -->
 <?php print_script_resource('assets/admin/plugins/pace-progress/pace.min.js') ?>
 <!-- Sweeatalert2 -->
-<?php print_script_resource('assets/admin/plugins/sweetalert2/sweetalert2.all.min.js') ?>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.3.5/dist/sweetalert2.all.min.js"></script>
 <!-- Toaster -->
 <?php print_script_resource('assets/admin/plugins/toastr/toastr.min.js') ?>
 <!-- Datatable -->

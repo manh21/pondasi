@@ -306,10 +306,10 @@ $message = isset($message) ? $message : null;
   <?php
   if (isset($status)) {
   ?>
-    <script>
+    <script?>
       var status = <?php print_var($status) ?>;
       var message = <?php print_var($message) ?>;
-    </script>
+    </script?>
   <?php
   }
   ?>

@@ -64,14 +64,18 @@ $routes->group('admin', [
 	$routes->get('dashboard', 'Dashboard', []);
 
 	$routes->group('userlist', [
-		'namespace' => 'App\Controllers\Admin\User'
+		'namespace' => 'App\Controllers\Admin\User',
+		'filter' => 'RedirectAuth'
 	], function($routes) {
 		$routes->get('', 'UserList', []);
-		$routes->get('getdata', 'UserList::getdata', []);
+		$routes->get('getdata', 'UserList::getData', []);
+		$routes->get('getdetail/(:num)', 'UserList::getUserDetail/$1', []);
+		$routes->delete('delete/(:num)', 'UserList::deleteUser/$1', []);
 	});
 
 	$routes->group('usergroups', [
-		'namespace' => 'App\Controllers\Admin\User'
+		'namespace' => 'App\Controllers\Admin\User',
+		'filter' => 'RedirectAuth'
 	], function($routes) {
 		$routes->get('', 'UserGroups', []);
 		$routes->get('getdata', 'UserGroups::getdata', []);

@@ -22,7 +22,7 @@
     <?php print_link_resource('assets/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>
     <?php print_link_resource('assets/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') ?>
     <!-- Sweetalert2 -->
-    <?php print_link_resource('assets/admin/plugins/sweetalert2/sweetalert2.css') ?>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.3.5/dist/sweetalert2.min.css">
     <?php print_link_resource('assets/admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.css') ?>
     <!-- Toastr -->
     <?php print_link_resource('assets/admin/plugins/toastr/toastr.css') ?>
