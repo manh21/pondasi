@@ -35,7 +35,7 @@ class AdminController extends BaseController
 	 *
 	 * @var array
 	 */
-	protected $helpers = ['general', 'url'];
+	protected $helpers = ['general', 'url', 'form'];
 
 	/**
 	 * Constructor.

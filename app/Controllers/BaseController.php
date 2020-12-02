@@ -32,7 +32,14 @@ class BaseController extends Controller
 	 *
 	 * @var array
 	 */
-	protected $helpers = ['general', 'url'];
+	protected $helpers = ['general', 'url', 'form'];
+
+	/**
+	 * Session variable use
+	 * 
+	 * @var \CodeIgniter\Session\Session
+	 */
+	protected $session;
 
 	/**
 	 * Constructor.
@@ -46,7 +53,7 @@ class BaseController extends Controller
 		// Preload any models, libraries, etc, here.
 		//--------------------------------------------------------------------
 		// E.g.:
-		// $this->session = \Config\Services::session();
+		$this->session = \Config\Services::session();
 	}
 
 	protected function outputJson($status, $message, $csrf = true)
