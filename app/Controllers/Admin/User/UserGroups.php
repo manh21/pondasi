@@ -17,7 +17,7 @@ class UserGroups extends AdminController
 
 		$site_data = array(
 			'appName' => 'Admin Panel',
-			'pageTitle' => 'User List',
+			'pageTitle' => 'User Groups',
 			'contentTitle' => 'Content Title',
 			'authFullname' => $currentUserData['username'],
 			'contentView' => null,
@@ -26,7 +26,7 @@ class UserGroups extends AdminController
 			'viewScripts' => [],
 		);
 
-		echo view('App\\Views\\admin\\userList', $site_data);
+		echo view('App\\Views\\admin\\userGroups', $site_data);
 	}
 
 	public function getData()

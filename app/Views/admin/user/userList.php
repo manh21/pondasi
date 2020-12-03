@@ -9,12 +9,9 @@ $this->extend('App\Views\admin\layouts\index');
 <!-- Main content -->
 <section class="content">
   <div class="container-fluid">
-
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">User</h3>
-        <div class="card-tools">
-        </div>
+        <a href="<?= site_url('admin/userlist/add') ?>" class="btn btn-primary font-weight-bold"><i class="fas fa-plus"></i>&nbsp;Add</a>
       </div>
       <div class="card-body">
         <table id="userList" class="display table table-bordered table-hover table-striped" style="width:100%">
@@ -31,6 +28,9 @@ $this->extend('App\Views\admin\layouts\index');
           </thead>
         </table>        
       </div>
+      <div class="card-footer">
+        <!-- <a href="<?= site_url('admin/userlist/add') ?>" class="btn btn-primary font-weight-bold"><i class="fas fa-plus"></i>&nbsp;Add</a> -->
+      </div>
     </div>
 
     <!-- Default box -->
@@ -40,9 +40,11 @@ $this->extend('App\Views\admin\layouts\index');
 
         <div class="card-tools">
           <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-            <i class="fas fa-minus"></i></button>
+            <i class="fas fa-minus"></i>
+          </button>
           <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-            <i class="fas fa-times"></i></button>
+            <i class="fas fa-times"></i>
+          </button>
         </div>
       </div>
       <div class="card-body">
@@ -68,9 +70,9 @@ $this->extend('App\Views\admin\layouts\index');
 <?php $this->section('main-script'); ?>
 <script>
   $.ajaxSetup( {
-      headers: {
-          'X-CSRF-TOKEN': _CSRF_NAME,
-      }
+    headers: {
+      _CSRF_HEADER: _CSRF_HASH,
+    }
   });
 
   $(document).ready(function() {
@@ -99,7 +101,7 @@ $this->extend('App\Views\admin\layouts\index');
               for(let i = 0; i < data.length; i++){
                 let id = data[i]['id'];
                 let name = data[i]['name'];
-                html.push(`<a href="${_BASE_URL}/admin/usergroups/detail/${id}" class="btn bg-gray btn-sm"">${name}</a>`);
+                html.push(`<a href="${_BASE_URL}/admin/usergroups/detail/${id}" class="btn bg-gray btn-sm">${name}</a>`);
               }
               html.push('</div>');
 
@@ -114,9 +116,9 @@ $this->extend('App\Views\admin\layouts\index');
             let id = data[6];
             if(type === 'display'){
               if(data[5] == 1){
-                return `<a href="${_BASE_URL}/admin/userlist/deactivate/${id}" class="badge bg-success p-2 mx-auto">Active</a>`
+                return `<button onClick="deactivate(this)" data-id="${id}" class="btn btn-sm bg-success mx-auto">Active</button>`
               } else {
-                return `<a href="${_BASE_URL}/admin/userlist/activate/${id}" class="badge bg-danger p-2 mx-auto">Inactive</a>`
+                return `<button onClick="activate(this)" data-id="${id}" class="btn btn-sm bg-danger mx-auto">Inactive</button>`
               }
             }
             return data;
@@ -149,20 +151,24 @@ $this->extend('App\Views\admin\layouts\index');
     });
   });
 
+  function reloadTable() {
+    $('#userList').DataTable().ajax.reload();
+  }
+
   function getDetail(el) {
     const ID = el.getAttribute('data-id');
     const Username = el.getAttribute('data-username');
 
     let requestOptions = {
-        method: 'GET',
-        mode: 'same-origin',
-        redirect: 'follow',
-        // include credentials to apply cookies from browser window
-        credentials: 'same-origin', // 'include',
-        headers: new Headers()
+      method: 'GET',
+      mode: 'same-origin',
+      redirect: 'follow',
+      // include credentials to apply cookies from browser window
+      credentials: 'same-origin', // 'include',
+      headers: new Headers()
     };
     requestOptions.headers.append("X-Requested-With", "XMLHttpRequest");
-    requestOptions.headers.append("X-CSRF-TOKEN", _CSRF_NAME);
+    requestOptions.headers.append("X-CSRF-TOKEN", _CSRF_HASH);
     const URI = new URL('/admin/userlist/getdetail/' + ID, _BASE_URL);
     const request = new Request(URI, requestOptions);
 
@@ -251,22 +257,37 @@ $this->extend('App\Views\admin\layouts\index');
             headers: new Headers()
         };
         requestOptions.headers.append("X-Requested-With", "XMLHttpRequest");
-        requestOptions.headers.append("X-CSRF-TOKEN", _CSRF_NAME);
+        requestOptions.headers.append("X-CSRF-TOKEN", _CSRF_HASH);
         const URI = new URL('/admin/userlist/delete/' + ID, _BASE_URL);
         const request = new Request(URI, requestOptions);
 
         fetch(request)
           .then((res)=> {return res.json();})
           .then(res => {
-            let message = 'Your file has been deleted.';
-            if(res['message']){
-              message = res['message'];
+            if(res.status === 200) {
+              let messages = 'Your file has been deleted.';
+              if(res.messages){
+                messages = res.messages;
+              }
+              swalWithBootstrapButtons.fire(
+                'Deleted!',
+                `${messages}`,
+                'success'
+              )
+              reloadTable();
+            } else {
+              let messages;
+              if(res.messages){
+                messgaes = res.messages.error
+              } else {
+                messages = res.message
+              }
+              swalWithBootstrapButtons.fire(
+                `ERROR ${res.error}!`,
+                `${messages}`,
+                'error'
+              )
             }
-            swalWithBootstrapButtons.fire(
-              'Deleted!',
-              `${message}`,
-              'success'
-            )
           })
           .catch(res =>{
             swalWithBootstrapButtons.fire(
@@ -282,6 +303,179 @@ $this->extend('App\Views\admin\layouts\index');
         swalWithBootstrapButtons.fire(
           'Cancelled',
           'Data anda tersimpan dengan aman :)',
+          'error'
+        )
+      }
+    })
+  }
+
+  function activate(el) {
+    const ID = el.getAttribute('data-id');
+
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success m-2',
+        cancelButton: 'btn btn-danger m-2'
+      },
+      buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+      title: 'Apakah anda yakin?',
+      text: "Anda ingin mengaktifkan pengguna ini!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Activate!',
+      cancelButtonText: 'Cancel',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let requestOptions = {
+            method: 'POST',
+            mode: 'same-origin',
+            redirect: 'follow',
+            // include credentials to apply cookies from browser window
+            credentials: 'same-origin', // 'include',
+            headers: new Headers()
+        };
+        requestOptions.headers.append("X-Requested-With", "XMLHttpRequest");
+        requestOptions.headers.append("X-CSRF-TOKEN", _CSRF_HASH);
+
+        const URI = new URL('/admin/userlist/activate/' + ID, _BASE_URL);
+        const request = new Request(URI, requestOptions);
+
+        fetch(request)
+          .then((res)=> {return res.json();})
+          .then(res => {
+            if(res.status === 200) {
+              let messages = 'User telah diaktifkan';
+              if(res.messages){
+                messages = res.messages;
+              }
+              swalWithBootstrapButtons.fire(
+                'Activated!',
+                `${messages}`,
+                'success'
+              )
+              reloadTable();
+            } else {
+              let messages;
+              if(res.messages){
+                messgaes = res.messages.error
+              } else {
+                messages = res.message
+              }
+              swalWithBootstrapButtons.fire(
+                `ERROR ${res.error}!`,
+                `${messages}`,
+                'error'
+              )
+            }
+          })
+          .catch(res =>{
+            swalWithBootstrapButtons.fire(
+              'ERROR',
+              `${res}`,
+              'error'
+            )
+          });
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'User tidak diaktifkan.',
+          'error'
+        )
+      }
+    })
+  }
+
+  function deactivate(el) {
+    const ID = el.getAttribute('data-id');
+
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success m-2',
+        cancelButton: 'btn btn-danger m-2'
+      },
+      buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+      title: 'Apakah anda yakin?',
+      text: "Anda ingin menonaktifkan pengguna ini!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Deactivate!',
+      cancelButtonText: 'Cancel',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Form Data
+        const formData = new FormData();
+        formData.append('id', ID);
+
+        // RequestOption
+        const requestOptions = {
+          method: 'POST',
+          mode: 'same-origin',
+          redirect: 'follow',
+          // include credentials to apply cookies from browser window
+          credentials: 'same-origin', // 'include',
+          headers: new Headers(),
+          body: formData
+        };
+        requestOptions.headers.append("X-Requested-With", "XMLHttpRequest");
+        requestOptions.headers.append("X-CSRF-TOKEN", _CSRF_HASH);
+
+        // Rquest Builder
+        const URI = new URL('/admin/userlist/deactivate/' + ID, _BASE_URL);
+        const request = new Request(URI, requestOptions);
+
+        fetch(request)
+          .then((res)=> {return res.json();})
+          .then(res => {
+            if(res.status === 200) {
+              let messages = 'User telah dinonaktifkan';
+              if(res.messages){
+                messages = res.messages;
+              }
+              swalWithBootstrapButtons.fire(
+                'Deactivated!',
+                `${messages}`,
+                'success'
+              )
+              reloadTable();
+            } else {
+              let messages;
+              if(res.messages){
+                messgaes = res.messages.error
+              } else {
+                messages = res.message
+              }
+              swalWithBootstrapButtons.fire(
+                `ERROR ${res.error}!`,
+                `${messages}`,
+                'error'
+              )
+            }
+          })
+          .catch(res =>{
+            swalWithBootstrapButtons.fire(
+              'ERROR',
+              `${res}`,
+              'error'
+            )
+          });
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'User tidak diaktifkan.',
           'error'
         )
       }

@@ -69,6 +69,12 @@ $routes->group('admin', [
 	], function($routes) {
 		$routes->get('', 'UserList', []);
 		$routes->get('getdata', 'UserList::getData', []);
+		$routes->post('activate/(:num)', 'UserList::activate/$1', []);
+		$routes->post('deactivate/(:num)', 'UserList::deactivate/$1', []);
+		$routes->get('add', 'UserList::addUser', []);
+		$routes->post('add', 'UserList::addUser', []);
+		$routes->get('edit/(:num)', 'UserList::editUser/$1', []);
+		$routes->post('edit/(:num)', 'UserList::editUser/$1', []);
 		$routes->get('getdetail/(:num)', 'UserList::getUserDetail/$1', []);
 		$routes->delete('delete/(:num)', 'UserList::deleteUser/$1', []);
 	});
