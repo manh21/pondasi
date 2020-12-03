@@ -239,6 +239,8 @@ $message = isset($message) ? $message : null;
     const _ADMIN_SITE_URL = '<?= site_url('admin'); ?>';
     const _CSRF_COOKIE = '<?= csrf_cookie(); ?>';
     const _CSRF_NAME = '<?= csrf_token(); ?>';
+    const _CSRF_HEADER = '<?= csrf_header(); ?>';
+    const _CSRF_HASH = '<?= csrf_hash(); ?>';
   </script>
 
 </head>
