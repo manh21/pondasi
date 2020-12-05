@@ -84,7 +84,13 @@ $routes->group('admin', [
 		'filter' => 'RedirectAuth'
 	], function($routes) {
 		$routes->get('', 'UserGroups', []);
-		$routes->get('getdata', 'UserGroups::getdata', []);
+		$routes->get('getdata', 'UserGroups::getData', []);
+		$routes->get('detail/(:num)', 'UserGroups::detail/$1', []);
+		$routes->get('add', 'UserGroups::add', []);
+		$routes->post('add', 'UserGroups::add', []);
+		$routes->get('edit/(:num)', 'UserGroups::edit/$1', []);
+		$routes->post('edit/(:num)', 'UserGroups::edit/$1', []);
+		$routes->delete('delete', 'UserGroups::delete', []);
 	});
 });
 

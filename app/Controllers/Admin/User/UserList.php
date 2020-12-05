@@ -6,7 +6,6 @@ use App\Controllers\Admin\AdminController;
 use App\Libraries\Datatabel;
 
 use IonAuth\Libraries\IonAuth;
-use phpDocumentor\Reflection\Types\This;
 
 class UserList extends AdminController
 {
@@ -107,7 +106,7 @@ class UserList extends AdminController
 	{
 		if ($this->request->isAJAX()) {
 			if(!$id){
-				return $this->failNotFound('Users tidak ditemukan');
+				return $this->failNotFound('User tidak ditemukan');
 			}else{
 				$id = (int) $id;
 				$output = [];
@@ -225,7 +224,7 @@ class UserList extends AdminController
 				// display the create user form
 				// set the flash data error message if there is one
 				$this->data['message'] = $this->validation->getErrors() ? $this->validation->listErrors($this->validationListTemplate) : ($this->ionAuth->errors($this->validationListTemplate) ? $this->ionAuth->errors($this->validationListTemplate) : $this->session->getFlashdata('message'));
-				return redirect()->to(site_url('/admin/userlist'));
+				return redirect()->to(site_url('/admin/userlist/add'));
 			}
 		}
 	}
@@ -342,6 +341,11 @@ class UserList extends AdminController
 	 */
 	public function deleteUser(int $id)
 	{
+		if (! $this->ionAuth->loggedIn() || ! $this->ionAuth->isAdmin())
+		{
+			return redirect()->to('/auth');
+		}
+		
 		if($this->request->isAJAX()){
 			if(!$id){
 				// throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();

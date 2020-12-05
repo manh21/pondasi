@@ -23,7 +23,7 @@ class IonAuth extends \IonAuth\Config\IonAuth
 	 | The library will fail for empty password or password size above 4096 bytes.
 	 | This is an arbitrary (long) value to protect against DOS attack.
 	 */
-	public $siteTitle                = 'Pondasi2.test';       // Site Title, example.com
+	public $siteTitle                = 'pondasi.test';       // Site Title, example.com
 	public $adminEmail               = 'mail@naufalhakim.my.id'; // Admin Email, admin@example.com
 	public $defaultGroup             = 'members';           // Default group, use name
 	public $adminGroup               = 'admin';             // Default administrators group, use name

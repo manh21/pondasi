@@ -3,8 +3,6 @@
  * @var \CodeIgniter\view\View $this
  */
 $this->extend('App\Views\admin\layouts\index');
-
-$group = $data['group'];
 ?>
 
 <?php $this->section('main-content'); ?>
@@ -22,10 +20,9 @@ $group = $data['group'];
             <form class="needs-validation" novalidate action="<?= $actionUrl ?>" role="form" method="POST">
                 <div class="card-body">
                     <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
-                    <input type="hidden" name="id" value="<?= $group->id ?>" />
                     <div class="form-group">
                         <label for="identity">Group Name</label>
-                        <input required value="<?= empty($group->name) ? '' : htmlspecialchars($group->name, ENT_QUOTES, 'UTF-8') ?>" type="text" class="form-control" id="group_name" name="group_name" placeholder="Group Name">
+                        <input required type="text" class="form-control" id="group_name" name="group_name" placeholder="Group Name">
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -35,7 +32,7 @@ $group = $data['group'];
                     </div>
                     <div class="form-group">
                         <label for="email">Description</label>
-                        <input required value="<?= empty($group->description) ? '' : htmlspecialchars($group->description, ENT_QUOTES, 'UTF-8') ?>" type="text" class="form-control" id="group_description" name="group_description" placeholder="Description">
+                        <input required type="text" class="form-control" id="group_description" name="group_description" placeholder="Description">
                         <div class="valid-feedback">
                             Looks good!
                         </div>

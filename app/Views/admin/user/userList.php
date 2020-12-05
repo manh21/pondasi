@@ -9,6 +9,9 @@ $this->extend('App\Views\admin\layouts\index');
 <!-- Main content -->
 <section class="content">
   <div class="container-fluid">
+
+    <?= empty($message) ? '' : $message ?>
+    
     <div class="card">
       <div class="card-header">
         <a href="<?= site_url('admin/userlist/add') ?>" class="btn btn-primary font-weight-bold"><i class="fas fa-plus"></i>&nbsp;Add</a>
@@ -101,7 +104,7 @@ $this->extend('App\Views\admin\layouts\index');
               for(let i = 0; i < data.length; i++){
                 let id = data[i]['id'];
                 let name = data[i]['name'];
-                html.push(`<a href="${_BASE_URL}/admin/usergroups/detail/${id}" class="btn bg-gray btn-sm">${name}</a>`);
+                html.push(`<a onClick="getDetailUserGroups(this)" data-id="${id}" class="btn bg-gray btn-sm">${name}</a>`);
               }
               html.push('</div>');
 
@@ -154,6 +157,56 @@ $this->extend('App\Views\admin\layouts\index');
   function reloadTable() {
     $('#userList').DataTable().ajax.reload();
   }
+  
+  function getDetailUserGroups(el) {
+    const ID = el.getAttribute('data-id');
+
+    let requestOptions = {
+      method: 'GET',
+      mode: 'same-origin',
+      redirect: 'follow',
+      // include credentials to apply cookies from browser window
+      credentials: 'same-origin', // 'include',
+      headers: new Headers()
+    };
+    requestOptions.headers.append("X-Requested-With", "XMLHttpRequest");
+    requestOptions.headers.append(_CSRF_HEADER, _CSRF_HASH);
+    const URI = new URL('/admin/usergroups/detail/' + ID, _BASE_URL);
+    const request = new Request(URI, requestOptions);
+
+    fetch(request).then(res => res.json()).then(res => {
+      let data = res['data'];
+      let bhtml = [];
+      let active = ``;
+
+      if(data['active'] == 1){
+        active = `<div class="badge bg-success p-2 mx-auto">Active</div>`
+      } else {
+        active = `<div class="badge bg-danger p-2 mx-auto">Inactive</div>`
+      }
+
+      bhtml.push(`<table class="table table-bordered">`);
+      bhtml.push(`<tbody>`);
+      bhtml.push(`<tr>`);
+      bhtml.push(`<td>Name</td>`);
+      bhtml.push(`<td>${data['name']}</td>`);
+      bhtml.push(`</tr>`);
+      bhtml.push(`<tr>`);
+      bhtml.push(`<td>Description</td>`);
+      bhtml.push(`<td>${data['description']}</td>`);
+      bhtml.push(`</tr>`);
+      bhtml.push(`</tbody>`);
+      bhtml.push(`</table>`);
+
+      Swal.fire({
+        showCloseButton:true,
+        showConfirmButton: false,
+        html: bhtml.join('\n')
+      });
+    }).catch(err => {
+      console.error(err);
+    })    
+  }
 
   function getDetail(el) {
     const ID = el.getAttribute('data-id');
@@ -168,7 +221,7 @@ $this->extend('App\Views\admin\layouts\index');
       headers: new Headers()
     };
     requestOptions.headers.append("X-Requested-With", "XMLHttpRequest");
-    requestOptions.headers.append("X-CSRF-TOKEN", _CSRF_HASH);
+    requestOptions.headers.append(_CSRF_HEADER, _CSRF_HASH);
     const URI = new URL('/admin/userlist/getdetail/' + ID, _BASE_URL);
     const request = new Request(URI, requestOptions);
 
@@ -257,7 +310,7 @@ $this->extend('App\Views\admin\layouts\index');
             headers: new Headers()
         };
         requestOptions.headers.append("X-Requested-With", "XMLHttpRequest");
-        requestOptions.headers.append("X-CSRF-TOKEN", _CSRF_HASH);
+        requestOptions.headers.append(_CSRF_HEADER, _CSRF_HASH);
         const URI = new URL('/admin/userlist/delete/' + ID, _BASE_URL);
         const request = new Request(URI, requestOptions);
 
@@ -339,7 +392,7 @@ $this->extend('App\Views\admin\layouts\index');
             headers: new Headers()
         };
         requestOptions.headers.append("X-Requested-With", "XMLHttpRequest");
-        requestOptions.headers.append("X-CSRF-TOKEN", _CSRF_HASH);
+        requestOptions.headers.append(_CSRF_HEADER, _CSRF_HASH);
 
         const URI = new URL('/admin/userlist/activate/' + ID, _BASE_URL);
         const request = new Request(URI, requestOptions);
@@ -428,7 +481,7 @@ $this->extend('App\Views\admin\layouts\index');
           body: formData
         };
         requestOptions.headers.append("X-Requested-With", "XMLHttpRequest");
-        requestOptions.headers.append("X-CSRF-TOKEN", _CSRF_HASH);
+        requestOptions.headers.append(_CSRF_HEADER, _CSRF_HASH);
 
         // Rquest Builder
         const URI = new URL('/admin/userlist/deactivate/' + ID, _BASE_URL);

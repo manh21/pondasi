@@ -16,6 +16,8 @@ $currentGroups = $data['currentGroups'];
 <section class="content">
   <div class="container-fluid">
 
+    <?= empty($message) ? '' : $message ?>
+
     <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-8">
@@ -161,7 +163,7 @@ $currentGroups = $data['currentGroups'];
 <script>
     $.ajaxSetup( {
         headers: {
-        'X-CSRF-TOKEN': _CSRF_NAME,
+            _CSRF_HEADER: _CSRF_NAME,
         }
     });
 
