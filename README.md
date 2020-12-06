@@ -16,7 +16,11 @@ The user guide corresponding to this version of the framework can be found
 
 ## Installation & updates
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
+1. `composer install`
+2. `php spark migrate -n IonAuth`
+3. `php spark db:seed IonAuth\Database\Seeds\IonAuthSeeder`
+
+then `composer update` whenever
 there is a new release of the framework.
 
 When updating, check the release notes to see if there are any changes you might need to apply
@@ -25,7 +29,7 @@ to your `app` folder. The affected files can be copied or merged from
 
 ## Setup
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
+Copy `.env.examples` to `.env` and tailor for your app, specifically the baseURL
 and any database settings.
 
 ## Important Change with index.php
