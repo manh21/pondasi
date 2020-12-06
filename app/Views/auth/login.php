@@ -14,7 +14,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="<?= base_url()?>"><b>System</b>21</a>
+    <a href="<?= site_url()?>"><b>System</b>21</a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -23,10 +23,10 @@
 
       <div id="infoMessage"><?php echo $message;?></div>
 
-      <form action="<?= base_url('auth/login')?>" method="post">
+      <form action="<?= site_url('auth/login')?>" method="post">
         <?= csrf_field() ?>
         <div class="input-group mb-3">
-          <input type="email" id="identity" name="identity" class="form-control" placeholder="Email/Username">
+          <input type="email" id="identity" name="identity" class="form-control" placeholder="Email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -59,7 +59,7 @@
       </form>
 
       <p class="mb-1">
-        <a href="<?= base_url('auth/forget_password') ?>">I forgot my password</a>
+        <a href="<?= site_url('auth/forget_password') ?>">I forgot my password</a>
       </p>
       <p class="mb-0">
         <a href="register.html" class="text-center">Register a new membership</a>

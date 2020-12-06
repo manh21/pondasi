@@ -1,15 +1,57 @@
-<h1><?php echo lang('Auth.forgot_password_heading');?></h1>
-<p><?php echo sprintf(lang('Auth.forgot_password_subheading'), $identity_label);?></p>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>System21 | Log in</title>
 
-<div id="infoMessage"><?php echo $message;?></div>
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- App CSS -->
+  <?php print_link_resource("assets/admin/css/app.css"); ?>
 
-<?php echo form_open('auth/forgot_password');?>
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <a href="<?= site_url()?>"><b>System</b>21</a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Forgot Password</p>
 
-      <p>
-      	<label for="identity"><?php echo (($type === 'email') ? sprintf(lang('Auth.forgot_password_email_label'), $identity_label) : sprintf(lang('Auth.forgot_password_identity_label'), $identity_label));?></label> <br />
-      	<?php echo form_input($identity);?>
-      </p>
+      <div id="infoMessage"><?php echo $message;?></div>
 
-      <p><?php echo form_submit('submit', lang('Auth.forgot_password_submit_btn'));?></p>
+      <form action="<?= site_url('auth/forgot_password')?>" method="post">
+        <?= csrf_field() ?>
+        <div class="input-group mb-3">
+          <input required type="email" id="identity" name="identity" class="form-control" placeholder="Email">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+</div>
+<!-- /.login-box -->
 
-<?php echo form_close();?>
+<!-- App JS -->
+<?php print_script_resource("assets/admin/js/app.js"); ?>
+
+</body>
+</html>
+
