@@ -1,5 +1,6 @@
 <?php namespace Config;
 
+use App\Filters\LoginPage;
 use CodeIgniter\Config\BaseConfig;
 
 use App\Filters\RedirectAuthentication;
@@ -14,13 +15,14 @@ class Filters extends BaseConfig
 		'toolbar'  => \CodeIgniter\Filters\DebugToolbar::class,
 		'honeypot' => \CodeIgniter\Filters\Honeypot::class,
 		'RedirectAuth' => RedirectAuthentication::class,
+		'LoginPage' => LoginPage::class,
 		'Maintanance' => Maintanance::class,
 	];
 
 	// Always applied before every request
 	public $globals = [
 		'before' => [
-			//'honeypot',
+			'honeypot',
 			'csrf',
 			// 'Maintanance',
 			// 'csrf' => ['except' => [

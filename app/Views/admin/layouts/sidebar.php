@@ -67,7 +67,7 @@ $authFullname = isset($authFullname) ? $authFullname : 'No User';
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="<?= site_url('admin/settings') ?>" class="nav-link">
                         <i class="nav-icon fas fa-cog"></i>
                         <p>
                             Settings

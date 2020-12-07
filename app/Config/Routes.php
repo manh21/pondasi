@@ -38,7 +38,10 @@ $routes->group('/', [
 	$routes->get('', 'Home::index');
 });
 
-$routes->group('auth', ['namespace' => 'App\Controllers\Admin'], function ($routes) {
+$routes->group('auth', [
+	'namespace' => 'App\Controllers\Admin',
+	'filter' => 'LoginPage'
+], function ($routes) {
 	$routes->add('login', 'Auth::login');
 	$routes->get('logout', 'Auth::logout');
 	$routes->add('forgot_password', 'Auth::forgot_password');
@@ -62,6 +65,8 @@ $routes->group('admin', [
 
 	$routes->get('', 'Dashboard', ['as' => 'dashboard']);
 	$routes->get('dashboard', 'Dashboard', []);
+	$routes->get('settings', 'Settings', []);
+	$routes->post('settings', 'Settings::update', []);
 
 	$routes->group('userlist', [
 		'namespace' => 'App\Controllers\Admin\User',

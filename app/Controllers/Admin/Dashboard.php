@@ -1,11 +1,11 @@
 <?php namespace App\Controllers\Admin;
 
 use CodeIgniter\API\ResponseTrait;
-use CodeIgniter\HTTP\RequestInterface;
-use CodeIgniter\HTTP\ResponseInterface;
 
 use App\Controllers\Admin\AdminController;
 use App\Libraries\Datatabel;
+
+use App\Models\Admin\M_Settings;
 
 class Dashboard extends AdminController
 {

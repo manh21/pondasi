@@ -59,7 +59,7 @@
       </form>
 
       <p class="mb-1">
-        <a href="<?= site_url('auth/forget_password') ?>">I forgot my password</a>
+        <a href="<?= site_url('auth/forgot_password') ?>">I forgot my password</a>
       </p>
       <p class="mb-0">
         <a href="register.html" class="text-center">Register a new membership</a>

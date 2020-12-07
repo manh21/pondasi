@@ -7,7 +7,13 @@ class Auth extends \IonAuth\Controllers\Auth
      *  - copy the ion-auth/Views/auth folder to your Views folder,
      *  - remove comment
      */
-    protected $viewsFolder = 'App\Views\auth';
+	protected $viewsFolder = 'App\Views\auth';
+	
+	public function __construct()
+	{
+		parent::__construct();
+		helper(['general']);
+	}
 
     public function index()
     {
@@ -41,8 +47,6 @@ class Auth extends \IonAuth\Controllers\Auth
 			// redirect them to the login page
 			// return redirect()->to('/admin');
 		}
-
-        helper(['general']);
 
 		$this->data['title'] = lang('Auth.login_heading');
 
@@ -90,7 +94,7 @@ class Auth extends \IonAuth\Controllers\Auth
 	 * @return \CodeIgniter\HTTP\RedirectResponse
 	 */
 	public function logout()
-	{
+	{		
 		$this->data['title'] = 'Logout';
 
 		// log the user out
