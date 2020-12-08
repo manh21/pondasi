@@ -68,3 +68,32 @@ function csrf_cookie(): string
 	$config = config(App::class);
 	return $config->CSRFCookieName;
 }
+
+/**
+ * get site settings
+ * 
+ * @param	array	settings array form get_all()
+ * @param	string	Key
+ * 
+ * @return 	string
+ * 
+ * @author	Naufal Hakim
+ */
+function get_setting($array, $key){
+	$id = array_search($key, array_column($array, 'name'));
+	return get_var($array[$id]['value']);
+}
+
+/**
+ * Clean String for Value Input
+ * 
+ * @param	string	Value String
+ * 
+ * @return 	string	Cleaned Value Safe for Input Form
+ * 
+ * @author	Naufal Hakim
+ */
+function cleanValue($string)
+{
+	return get_var(cleanString($string));
+}
