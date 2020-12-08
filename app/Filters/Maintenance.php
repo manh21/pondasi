@@ -6,7 +6,7 @@ use CodeIgniter\Filters\FilterInterface;
 
 use \Config\Database;
 
-class Maintanance implements FilterInterface
+class Maintenance implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
@@ -15,7 +15,7 @@ class Maintanance implements FilterInterface
         $mode = $this->check();
 
         if($mode){
-            return redirect()->to(site_url('maintanance'));
+            return redirect()->to(site_url('maintenance'));
         }
 
     }
@@ -37,7 +37,7 @@ class Maintanance implements FilterInterface
         $query = $builder->get();
         $result = $query->getRowArray();
 
-        if($result['value'] == 'true'){
+        if($result['value'] == 2 ){
             return true;
         } else {
             return false;

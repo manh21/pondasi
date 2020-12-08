@@ -50,7 +50,7 @@ class SimpleSeeder extends \CodeIgniter\Database\Seeder
                     [
                         'id'       => 8,
                         'name'     => 'maintenance',
-                        'value'    => 'false',
+                        'value'    => '1',
                         'type'     => 'general',
                     ],
                 ];

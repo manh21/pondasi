@@ -33,10 +33,12 @@ $routes->setAutoRoute(true);
 
 $routes->group('/', [
 	'namespace' => 'App\Controllers',
-	'filter' => 'Maintanance'
+	'filter' => 'Maintenance'
 ], function ($routes){
 	$routes->get('', 'Home::index');
 });
+
+$routes->add('maintenance', 'Maintenance');
 
 $routes->group('auth', [
 	'namespace' => 'App\Controllers\Admin',
@@ -66,7 +68,7 @@ $routes->group('admin', [
 	$routes->get('', 'Dashboard', ['as' => 'dashboard']);
 	$routes->get('dashboard', 'Dashboard', []);
 	$routes->get('settings', 'Settings', []);
-	$routes->post('settings', 'Settings::update', []);
+	$routes->post('settings/save', 'Settings::update', []);
 
 	$routes->group('userlist', [
 		'namespace' => 'App\Controllers\Admin\User',

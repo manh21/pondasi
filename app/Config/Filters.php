@@ -4,7 +4,7 @@ use App\Filters\LoginPage;
 use CodeIgniter\Config\BaseConfig;
 
 use App\Filters\RedirectAuthentication;
-use App\Filters\Maintanance;
+use App\Filters\Maintenance;
 
 class Filters extends BaseConfig
 {
@@ -16,7 +16,7 @@ class Filters extends BaseConfig
 		'honeypot' => \CodeIgniter\Filters\Honeypot::class,
 		'RedirectAuth' => RedirectAuthentication::class,
 		'LoginPage' => LoginPage::class,
-		'Maintanance' => Maintanance::class,
+		'Maintenance' => Maintenance::class,
 	];
 
 	// Always applied before every request
@@ -24,7 +24,7 @@ class Filters extends BaseConfig
 		'before' => [
 			'honeypot',
 			'csrf',
-			// 'Maintanance',
+			// 'Maintenance',
 			// 'csrf' => ['except' => [
 			// 	'api/contact/save',
 			// 	'api/contact/delete'
