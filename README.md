@@ -2,7 +2,13 @@
 
 ## What is Pondasi?
 
-Pondasi give you solid ground to develop your application in CodeIgniter 4 Framework. Inside pondasi tou will find auth, serverside datatable, Dashboard Admin (AdminLTE3) and route.
+Pondasi give you solid ground to develop your application in CodeIgniter 4 Framework. Inside pondasi you will find:
+
+- auth
+- serverside datatable
+- Dashboard Admin (AdminLTE3)
+- site settings
+- unique admin | dashboard | auth url.
 
 ## Installation & updates
 
