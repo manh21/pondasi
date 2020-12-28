@@ -2,12 +2,11 @@
 
 use CodeIgniter\Database\Migration;
 
-class AddSiteSettings extends Migration
+class AddSettings extends Migration
 {
-
         public function up()
         {
-            $this->forge->addField([
+                $this->forge->addField([
                 'id'          => [
                         'type'           => 'INT',
                         'constraint'     => 5,
@@ -29,13 +28,19 @@ class AddSiteSettings extends Migration
                         'default'        => 'general',
                         'null'           => false,
                 ]   
-            ]);
-            $this->forge->addKey('id', true);
-            $this->forge->createTable('settings');
+                ]);
+                // Primary Key
+                $this->forge->addKey('id', TRUE);
+
+                // More key
+                $this->forge->addKey('name');
+                
+                $attributes = ['ENGINE' => 'InnoDB'];
+                $this->forge->createTable('settings', TRUE, $attributes);
         }
 
         public function down()
         {
-                $this->forge->dropTable('settings');
+                $this->forge->dropTable('settings', TRUE);
         }
 }
