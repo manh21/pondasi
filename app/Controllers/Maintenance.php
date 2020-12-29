@@ -12,7 +12,7 @@ class Maintenance extends BaseController
             return redirect()->to(site_url());
         }        
 
-        echo 'Maintenance';
+        return view('Maintenance');
     }
 
     private function check(){
