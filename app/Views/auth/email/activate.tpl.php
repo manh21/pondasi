@@ -4,7 +4,7 @@
 	<p>
 		<?php
 		echo sprintf(lang('IonAuth.emailActivate_subheading'),
-						  anchor('auth/activate/' . $id . '/' . $activation, lang('IonAuth.emailActivate_link')));
+						  anchor(get_admin_prefix().'/auth/activate/' . $id . '/' . $activation, lang('IonAuth.emailActivate_link')));
 		?>
 	</p>
 </body>

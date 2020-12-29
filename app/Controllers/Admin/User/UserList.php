@@ -139,7 +139,7 @@ class UserList extends AdminController
 	{
 		if (! $this->ionAuth->loggedIn() || ! $this->ionAuth->isAdmin())
 		{
-			return redirect()->to('/auth');
+			return redirectAdmin('auth/login');
 		}
 
 		if(!$this->request->getPost()){
@@ -152,8 +152,8 @@ class UserList extends AdminController
 				'contentTitle' => '',
 				'authFullname' => $currentUserData['username'],
 				'contentView' => null,
-				'actionUrl' => site_url('admin/userlist/add'),
-				'backWardUrl' => site_url('admin/userlist'),
+				'actionUrl' => adminURL('admin/userlist/add'),
+				'backWardUrl' => adminURL('admin/userlist'),
 				'viewScripts' => [],
 				'ionAuth' => $this->ionAuth,
 				'data' => array(
@@ -219,12 +219,12 @@ class UserList extends AdminController
 				// check to see if we are creating the user
 				// redirect them back to the admin page
 				$this->session->setFlashdata('message', $this->ionAuth->messages());
-				return redirect()->to(site_url('/admin/userlist'));
+				return redirectAdmin('admin/userlist');
 			} else {
 				// display the create user form
 				// set the flash data error message if there is one
 				$this->data['message'] = $this->validation->getErrors() ? $this->validation->listErrors($this->validationListTemplate) : ($this->ionAuth->errors($this->validationListTemplate) ? $this->ionAuth->errors($this->validationListTemplate) : $this->session->getFlashdata('message'));
-				return redirect()->to(site_url('/admin/userlist/add'));
+				return redirectAdmin('admin/userlist/add');
 			}
 		}
 	}
@@ -250,8 +250,8 @@ class UserList extends AdminController
 				'contentTitle' => '',
 				'authFullname' => $currentUserData['username'],
 				'contentView' => null,
-				'actionUrl' => site_url('admin/userlist/edit/'.$id),
-				'backWardUrl' => site_url('admin/userlist'),
+				'actionUrl' => adminURL('admin/userlist/edit/'.$id),
+				'backWardUrl' => adminURL('admin/userlist'),
 				'viewScripts' => [],
 				'ionAuth' => $this->ionAuth,
 				'data' => array(
@@ -327,7 +327,7 @@ class UserList extends AdminController
 				}
 				
 				// redirect them back to the admin page if admin, or to the base url if non admin
-				return redirect()->to(site_url('/admin/userlist'));
+				return redirectAdmin('admin/userlist');
 			}
 		}
 	}
@@ -343,7 +343,7 @@ class UserList extends AdminController
 	{
 		if (! $this->ionAuth->loggedIn() || ! $this->ionAuth->isAdmin())
 		{
-			return redirect()->to('/auth');
+			return redirectAdmin('auth/login');
 		}
 		
 		if($this->request->isAJAX()){
@@ -454,6 +454,6 @@ class UserList extends AdminController
 		}
 	}
 
-	//--------------------------------------------------------------------
+	//----------------------------- END ---------------------------------------
 
 }

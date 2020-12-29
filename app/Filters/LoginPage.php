@@ -10,10 +10,13 @@ class LoginPage implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
+        helper('general');
+
         $auth = Services::auth();
         $isAdmin = $auth->isAdmin();
+
         if($isAdmin){
-            return redirect()->to(site_url('admin'));
+            return redirectAdmin('admin');
         }
     }
 

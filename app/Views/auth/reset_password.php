@@ -14,7 +14,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="<?= site_url()?>"><b>System</b>21</a>
+    <a href="<?= adminURL('admin')?>"><b>System</b>21</a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -23,7 +23,7 @@
 
       <div id="infoMessage"><?php echo $message;?></div>
 
-      <form action="<?= site_url('auth/reset_password/' . $code)?>" method="post">
+      <form action="<?= adminURL('auth/reset_password/' . $code)?>" method="post">
         <?= csrf_field() ?>
         <?php echo form_input($user_id);?>
         <div class="input-group mb-3">

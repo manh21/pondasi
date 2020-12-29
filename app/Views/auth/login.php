@@ -23,7 +23,7 @@
 
       <div id="infoMessage"><?php echo $message;?></div>
 
-      <form action="<?= site_url('auth/login')?>" method="post">
+      <form action="<?= adminURL('auth/login') ?>" method="post">
         <?= csrf_field() ?>
         <div class="input-group mb-3">
           <input type="email" id="identity" name="identity" class="form-control" placeholder="Email">
@@ -59,7 +59,7 @@
       </form>
 
       <p class="mb-1">
-        <a href="<?= site_url('auth/forgot_password') ?>">I forgot my password</a>
+        <a href="<?= adminURL('auth/forgot_password') ?>">I forgot my password</a>
       </p>
       <p class="mb-0">
         <a href="register.html" class="text-center">Register a new membership</a>

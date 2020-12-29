@@ -12,7 +12,7 @@ class Auth extends \IonAuth\Controllers\Auth
 	public function __construct()
 	{
 		parent::__construct();
-		helper(['general']);
+		// helper(['general']);
 	}
 
     public function index()
@@ -20,7 +20,7 @@ class Auth extends \IonAuth\Controllers\Auth
         if (!$this->ionAuth->loggedIn())
 		{
 			// redirect them to the login page
-			return redirect()->to('/auth/login');
+			return redirectAdmin('auth/login');
 		}
 		else if (!$this->ionAuth->isAdmin()) // remove this elseif if you want to enable this for non-admins
 		{
@@ -30,7 +30,7 @@ class Auth extends \IonAuth\Controllers\Auth
 		}
 		else
 		{
-			return redirect()->to('/admin/user');
+			return redirectAdmin('admin/userlist');
 		}
     }
 
@@ -45,6 +45,7 @@ class Auth extends \IonAuth\Controllers\Auth
         if ($this->ionAuth->loggedIn())
 		{
 			// redirect them to the login page
+			return redirectAdmin('admin');
 			// return redirect()->to('/admin');
 		}
 
@@ -67,7 +68,8 @@ class Auth extends \IonAuth\Controllers\Auth
 				//if the login is successful
 				//redirect them back to the home page
 				$this->session->setFlashdata('message', $this->ionAuth->messages());
-				return redirect()->to('/admin');
+				return redirectAdmin('admin');
+				// return redirect()->to('/admin');
 			}
 			else
 			{
@@ -102,7 +104,8 @@ class Auth extends \IonAuth\Controllers\Auth
 
 		// redirect them to the login page
 		$this->session->setFlashdata('message', $this->ionAuth->messages());
-		return redirect()->to('/auth/login');
+		return redirectAdmin('auth/login');
+		// return redirect()->to('/auth/login');
 	}
 
 	/**
@@ -118,7 +121,8 @@ class Auth extends \IonAuth\Controllers\Auth
 
 		if (! $this->ionAuth->loggedIn())
 		{
-			return redirect()->to('/auth/login');
+			return redirectAdmin('auth/login');
+			// return redirect()->to('/auth/login');
 		}
 
 		$user = $this->ionAuth->user()->row();
@@ -172,7 +176,8 @@ class Auth extends \IonAuth\Controllers\Auth
 			else
 			{
 				$this->session->setFlashdata('message', $this->ionAuth->errors($this->validationListTemplate));
-				return redirect()->to('/auth/change_password');
+				return redirectAdmin('auth/change_password');
+				// return redirect()->to('/auth/change_password');
 			}
 		}
     }
@@ -235,7 +240,8 @@ class Auth extends \IonAuth\Controllers\Auth
 				}
 
 				$this->session->setFlashdata('message', $this->ionAuth->errors($this->validationListTemplate));
-				return redirect()->to('/auth/forgot_password');
+				return redirectAdmin('auth/forgot_password');
+				// return redirect()->to('/auth/forgot_password');
 			}
 
 			// run the forgotten password method to email an activation code to the user
@@ -245,12 +251,14 @@ class Auth extends \IonAuth\Controllers\Auth
 			{
 				// if there were no errors
 				$this->session->setFlashdata('message', $this->ionAuth->messages());
-				return redirect()->to('/auth/login'); //we should display a confirmation page here instead of the login page
+				return redirectAdmin('auth/login');
+				// return redirect()->to('/auth/login'); //we should display a confirmation page here instead of the login page
 			}
 			else
 			{
 				$this->session->setFlashdata('message', $this->ionAuth->errors($this->validationListTemplate));
-				return redirect()->to('/auth/forgot_password');
+				return redirectAdmin('auth/forgot_password');
+				// return redirect()->to('/auth/forgot_password');
 			}
 		}
 	}
@@ -332,12 +340,14 @@ class Auth extends \IonAuth\Controllers\Auth
 					{
 						// if the password was successfully changed
 						$this->session->setFlashdata('message', $this->ionAuth->messages());
-						return redirect()->to('/auth/login');
+						return redirectAdmin('auth/login');
+						// return redirect()->to('/auth/login');
 					}
 					else
 					{
 						$this->session->setFlashdata('message', $this->ionAuth->errors($this->validationListTemplate));
-						return redirect()->to('/auth/reset_password/' . $code);
+						return redirectAdmin('auth/reset_password/' . $code);
+						// return redirect()->to('/auth/reset_password/' . $code);
 					}
 				}
 			}
@@ -346,7 +356,8 @@ class Auth extends \IonAuth\Controllers\Auth
 		{
 			// if the code is invalid then send them back to the forgot password page
 			$this->session->setFlashdata('message', $this->ionAuth->errors($this->validationListTemplate));
-			return redirect()->to('/auth/forgot_password');
+			return redirectAdmin('auth/forgot_password');
+			// return redirect()->to('/auth/forgot_password');
 		}
 	}
 

@@ -74,7 +74,7 @@ class Settings extends AdminController
 			'contentTitle' => '',
 			'authFullname' => $this->currentUserData['username'],
 			'contentView' => null,
-			'actionUrl' => site_url('admin/settings/save'),
+			'actionUrl' => adminURL('admin/settings/save'),
 			'backWardUrl' => '#',
             'viewScripts' => [],
             'settings' => (object) array(
@@ -95,7 +95,7 @@ class Settings extends AdminController
     public function update()
     {
         if(!$this->request->getPost()){
-            redirect()->to(site_url('admin/settings'));
+            return redirectAdmin('admin/settings');
         } else {
             
             $this->validation->setRule('site_name','site_name', 'required|trim');
@@ -158,12 +158,12 @@ class Settings extends AdminController
                     // }
                 }
 
-                return redirect()->to(site_url('admin/settings'));
+                return redirectAdmin('admin/settings');
             } 
             else 
             {
                 $this->data['message'] = $this->validation->getErrors() ? $this->validation->listErrors($this->validationListTemplate) : ($this->ionAuth->errors($this->validationListTemplate) ? $this->ionAuth->errors($this->validationListTemplate) : $this->session->getFlashdata('message'));
-				return redirect()->to(site_url('admin/settings'));
+                return redirectAdmin('admin/settings');
             }
         }
     }

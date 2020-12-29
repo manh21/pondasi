@@ -23,7 +23,7 @@ $authFullname = isset($authFullname) ? $authFullname : 'No User';
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar nav-flat nav-child-indent flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="<?php echo base_url(); ?>" target="_blank" class="nav-link">
+                    <a href="<?php echo site_url(); ?>" target="_blank" class="nav-link">
                         <i class="nav-icon fas fa-blog"></i>
                         <p>
                             Show Website
@@ -49,7 +49,7 @@ $authFullname = isset($authFullname) ? $authFullname : 'No User';
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= base_url()?>/admin/userlist" class="nav-link">
+                            <a href="<?= adminURL('admin/userlist')?>" class="nav-link">
                                 <i class="nav-icon far fa-circle"></i>
                                 <p>
                                     User List
@@ -57,7 +57,7 @@ $authFullname = isset($authFullname) ? $authFullname : 'No User';
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url()?>/admin/usergroups" class="nav-link">
+                            <a href="<?= adminURL('admin/usergroups')?>" class="nav-link">
                                 <i class="nav-icon far fa-circle"></i>
                                 <p>
                                     User Group
@@ -67,7 +67,7 @@ $authFullname = isset($authFullname) ? $authFullname : 'No User';
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= site_url('admin/settings') ?>" class="nav-link">
+                    <a href="<?= adminURL('admin/settings') ?>" class="nav-link">
                         <i class="nav-icon fas fa-cog"></i>
                         <p>
                             Settings
@@ -83,7 +83,7 @@ $authFullname = isset($authFullname) ? $authFullname : 'No User';
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url()?>/admin/logout" class="nav-link">
+                    <a href="<?= adminURL('admin/logout')?>" class="nav-link">
                         <i class="nav-icon fas fa-sign-out-alt"></i>
                         <p>
                             Log Out

@@ -74,9 +74,7 @@ function csrf_cookie(): string
  * 
  * @param	array	settings array form get_all()
  * @param	string	Key
- * 
  * @return 	string
- * 
  * @author	Naufal Hakim
  */
 function get_setting($array, $key){
@@ -88,12 +86,51 @@ function get_setting($array, $key){
  * Clean String for Value Input
  * 
  * @param	string	Value String
- * 
  * @return 	string	Cleaned Value Safe for Input Form
- * 
  * @author	Naufal Hakim
  */
 function cleanValue($string)
 {
 	return get_var(cleanString($string));
+}
+
+/**
+ * get admin prefix from env
+ * 
+ * @return	string|null
+ * @author	Naufal Hakim
+ */
+function get_admin_prefix(){
+	if(!empty($_ENV['ADMIN_PREFIX'])){
+		$adminPrefix = $_ENV['ADMIN_PREFIX'];
+	}  else {
+		$adminPrefix = '';
+	}
+	return $adminPrefix;
+}
+
+/**
+ * Site Url Builder untuk admin
+ * add support for admin prefix
+ * 
+ * @param	string	url to go 'admin/setting'
+ * @return	string
+ * @author 	Naufal Hakim
+ */
+function adminURL($string){	
+	if (empty($string)) {
+		return site_url(get_admin_prefix());
+	}
+	return site_url(get_admin_prefix() . '/' . $string);
+}
+
+/**
+ * Redirect admin url with prefix
+ * 
+ * @param	string	url to go 'admin/setting'
+ * @return	string|\CodeIgniter\HTTP\RedirectResponse
+ * @author	Naufal Hakim
+ */
+function redirectAdmin($string){
+	return redirect()->to(adminURL($string));
 }

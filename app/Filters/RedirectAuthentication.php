@@ -10,10 +10,14 @@ class RedirectAuthentication implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
+        helper('general');
+
         $auth = Services::auth();
         $isAdmin = $auth->isAdmin();
+
+
         if(!$isAdmin){
-            return redirect()->to(site_url('/auth/login'));
+            return redirectAdmin('auth/login');
         }
     }
 

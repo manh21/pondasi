@@ -102,7 +102,7 @@ class UserGroups extends AdminController
 	{
 		if (! $this->ionAuth->loggedIn() || ! $this->ionAuth->isAdmin())
 		{
-			return redirect()->to('/auth');
+			return redirectAdmin('auth');
 		}
 
 		if($this->request->isAJAX()){
@@ -136,7 +136,7 @@ class UserGroups extends AdminController
 	{
 		if (! $this->ionAuth->loggedIn() || ! $this->ionAuth->isAdmin())
 		{
-			return redirect()->to('/auth');
+			return redirectAdmin('auth');
 		}
 
 		if ($this->request->isAJAX()) {
@@ -175,8 +175,8 @@ class UserGroups extends AdminController
 				'contentTitle' => 'Group',
 				'authFullname' => $currentUserData['username'],
 				'contentView' => null,
-				'actionUrl' => site_url('admin/usergroups/add'),
-				'backWardUrl' => site_url('admin/usergroups'),
+				'actionUrl' => adminURL('admin/usergroups/add'),
+				'backWardUrl' => adminURL('admin/usergroups'),
 				'viewScripts' => [],
 			);
 	
@@ -193,14 +193,14 @@ class UserGroups extends AdminController
 					// check to see if we are creating the group
 					// redirect them back to the admin page
 					$this->session->setFlashdata('message', $this->ionAuth->messages());
-					return redirect()->to(site_url('admin/usergroups'));
+					return redirectAdmin('admin/usergroups');
 				}
 			} else {
 				// display the create group form
 				// set the flash data error message if there is one
 				$this->data['message'] = $this->validation->getErrors() ? $this->validation->listErrors($this->validationListTemplate) : ($this->ionAuth->errors($this->validationListTemplate) ? $this->ionAuth->errors($this->validationListTemplate) : $this->session->getFlashdata('message'));
 
-				return redirect()->to(site_url('admin/usergroups/add'));
+				return redirectAdmin('admin/usergroups/add');
 			}
 		}
 		
@@ -226,8 +226,8 @@ class UserGroups extends AdminController
 				'contentTitle' => 'Group',
 				'authFullname' => $currentUserData['username'],
 				'contentView' => null,
-				'actionUrl' => site_url('admin/usergroups/edit/'.$id),
-				'backWardUrl' => site_url('admin/usergroups'),
+				'actionUrl' => adminURL('admin/usergroups/edit/'.$id),
+				'backWardUrl' => adminURL('admin/usergroups'),
 				'viewScripts' => [],
 				'data' => array(
 					'group' => $group
@@ -253,14 +253,13 @@ class UserGroups extends AdminController
 					$this->session->setFlashdata('message', $this->ionAuth->errors($this->validationListTemplate));
 				}
 
-				return redirect()->to(site_url('admin/usergroups'));
+				return redirectAdmin('admin/usergroups');
 			} else {
 
 				// set the flash data error message if there is one
 				$this->data['message'] = $this->validation->listErrors($this->validationListTemplate) ?: ($this->ionAuth->errors($this->validationListTemplate) ?: $this->session->getFlashdata('message'));
 
-				return redirect()->to(site_url('admin/usergroups/edit'));
-
+				return redirectAdmin('admin/usergroups/edit');
 			}
 
 		}
