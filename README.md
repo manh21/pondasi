@@ -6,9 +6,10 @@ Pondasi give you solid ground to develop your application in CodeIgniter 4 Frame
 
 - auth
 - serverside datatable
-- Dashboard Admin (AdminLTE3)
+- dashboard admin (AdminLTE3)
 - site settings
-- unique admin | dashboard | auth url.
+- unique admin url
+- maintenance mode
 
 ## Installation & updates
 
