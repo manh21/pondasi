@@ -25,7 +25,7 @@ $group = $data['group'];
                     <input type="hidden" name="id" value="<?= $group->id ?>" />
                     <div class="form-group">
                         <label for="identity">Group Name</label>
-                        <input required value="<?= empty($group->name) ? '' : htmlspecialchars($group->name, ENT_QUOTES, 'UTF-8') ?>" type="text" class="form-control" id="group_name" name="group_name" placeholder="Group Name">
+                        <input required value="<?= cleanValue($group->name) ?>" type="text" class="form-control" id="group_name" name="group_name" placeholder="Group Name">
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -35,7 +35,7 @@ $group = $data['group'];
                     </div>
                     <div class="form-group">
                         <label for="email">Description</label>
-                        <input required value="<?= empty($group->description) ? '' : htmlspecialchars($group->description, ENT_QUOTES, 'UTF-8') ?>" type="text" class="form-control" id="group_description" name="group_description" placeholder="Description">
+                        <input required value="<?= cleanValue($group->description) ?>" type="text" class="form-control" id="group_description" name="group_description" placeholder="Description">
                         <div class="valid-feedback">
                             Looks good!
                         </div>

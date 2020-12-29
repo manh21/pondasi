@@ -14,7 +14,7 @@ $this->extend('App\Views\admin\layouts\index');
     
     <div class="card">
       <div class="card-header">
-        <a href="<?= site_url('admin/userlist/add') ?>" class="btn btn-primary font-weight-bold"><i class="fas fa-plus"></i>&nbsp;Add</a>
+        <a href="<?= adminURL('admin/userlist/add') ?>" class="btn btn-primary font-weight-bold"><i class="fas fa-plus"></i>&nbsp;Add</a>
       </div>
       <div class="card-body">
         <table id="userList" class="display table table-bordered table-hover table-striped" style="width:100%">
@@ -32,7 +32,7 @@ $this->extend('App\Views\admin\layouts\index');
         </table>        
       </div>
       <div class="card-footer">
-        <!-- <a href="<?= site_url('admin/userlist/add') ?>" class="btn btn-primary font-weight-bold"><i class="fas fa-plus"></i>&nbsp;Add</a> -->
+        <!-- <a href="<?= adminURL('admin/userlist/add') ?>" class="btn btn-primary font-weight-bold"><i class="fas fa-plus"></i>&nbsp;Add</a> -->
       </div>
     </div>
 
@@ -89,7 +89,7 @@ $this->extend('App\Views\admin\layouts\index');
       "responsive": true,
       "processing": true,
       "serverSide": true,
-      "ajax": "/admin/userlist/getdata",
+      "ajax": _ADMIN_SITE_URL + "/userlist/getdata",
       "columns": [
         { data: 0 },
         { data: 1 },
@@ -138,7 +138,7 @@ $this->extend('App\Views\admin\layouts\index');
 
               html.push(`<div class="btn-group">`);
               html.push(`<button onClick="getDetail(this)" class="btn btn-info btn-sm" data-id="${ID}" data-username="${USERNAME}"><i class="fas fa-search"></i></button>`);
-              html.push(`<a class="btn bg-purple btn-sm" href="${_BASE_URL}/admin/userlist/edit/${ID}"><i class="fas fa-edit"></i></a>`);
+              html.push(`<a class="btn bg-purple btn-sm" href="${_ADMIN_SITE_URL}/userlist/edit/${ID}"><i class="fas fa-edit"></i></a>`);
               html.push(`<button onClick="deleteData(this)" data-id="${ID}" data-username="${USERNAME}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>`);
               html.push(`</div>`);
 
@@ -171,7 +171,7 @@ $this->extend('App\Views\admin\layouts\index');
     };
     requestOptions.headers.append("X-Requested-With", "XMLHttpRequest");
     requestOptions.headers.append(_CSRF_HEADER, _CSRF_HASH);
-    const URI = new URL('/admin/usergroups/detail/' + ID, _BASE_URL);
+    const URI = new URL(__ADMIN_PREFIX__ + '/admin/usergroups/detail/' + ID, _BASE_URL);
     const request = new Request(URI, requestOptions);
 
     fetch(request).then(res => res.json()).then(res => {
@@ -222,7 +222,7 @@ $this->extend('App\Views\admin\layouts\index');
     };
     requestOptions.headers.append("X-Requested-With", "XMLHttpRequest");
     requestOptions.headers.append(_CSRF_HEADER, _CSRF_HASH);
-    const URI = new URL('/admin/userlist/getdetail/' + ID, _BASE_URL);
+    const URI = new URL(__ADMIN_PREFIX__ + '/admin/userlist/getdetail/' + ID, _BASE_URL);
     const request = new Request(URI, requestOptions);
 
     fetch(request).then(res => res.json()).then(res => {
@@ -311,7 +311,7 @@ $this->extend('App\Views\admin\layouts\index');
         };
         requestOptions.headers.append("X-Requested-With", "XMLHttpRequest");
         requestOptions.headers.append(_CSRF_HEADER, _CSRF_HASH);
-        const URI = new URL('/admin/userlist/delete/' + ID, _BASE_URL);
+        const URI = new URL(__ADMIN_PREFIX__ + '/admin/userlist/delete/' + ID, _BASE_URL);
         const request = new Request(URI, requestOptions);
 
         fetch(request)
@@ -394,7 +394,7 @@ $this->extend('App\Views\admin\layouts\index');
         requestOptions.headers.append("X-Requested-With", "XMLHttpRequest");
         requestOptions.headers.append(_CSRF_HEADER, _CSRF_HASH);
 
-        const URI = new URL('/admin/userlist/activate/' + ID, _BASE_URL);
+        const URI = new URL(__ADMIN_PREFIX__ + '/admin/userlist/activate/' + ID, _BASE_URL);
         const request = new Request(URI, requestOptions);
 
         fetch(request)
@@ -484,7 +484,7 @@ $this->extend('App\Views\admin\layouts\index');
         requestOptions.headers.append(_CSRF_HEADER, _CSRF_HASH);
 
         // Rquest Builder
-        const URI = new URL('/admin/userlist/deactivate/' + ID, _BASE_URL);
+        const URI = new URL(__ADMIN_PREFIX__ + '/admin/userlist/deactivate/' + ID, _BASE_URL);
         const request = new Request(URI, requestOptions);
 
         fetch(request)

@@ -13,7 +13,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="<?php echo site_url('admin/logout'); ?>">
+            <a class="nav-link" href="<?php echo adminURL('admin/logout'); ?>">
                 <i class="fa fa-power-off"></i>
             </a>
         </li>

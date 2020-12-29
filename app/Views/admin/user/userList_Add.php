@@ -114,7 +114,7 @@ $groups = $data['groups'];
                         <?php foreach ($groups as $group):?>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="groups[]" value="<?php echo $group['id'];?>">
-                                <label class="form-check-label"><?php echo htmlspecialchars($group['name'], ENT_QUOTES, 'UTF-8');?></label>
+                                <label class="form-check-label"><?php echo cleanValue($group['name']);?></label>
                             </div>
                         <?php endforeach?>
                         </div>

@@ -30,7 +30,7 @@ $currentGroups = $data['currentGroups'];
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="first_name">First Name</label>
-                                <input required type="text" value="<?= empty($user->first_name) ? '' : htmlspecialchars($user->first_name, ENT_QUOTES, 'UTF-8') ?>" name="first_name" id="first_name" class="form-control" placeholder="Enter First Name">
+                                <input required type="text" value="<?= cleanValue($user->first_name) ?>" name="first_name" id="first_name" class="form-control" placeholder="Enter First Name">
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
@@ -42,7 +42,7 @@ $currentGroups = $data['currentGroups'];
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="last_name" >Last Name</label>
-                                <input id="last_name" name="last_name" type="text" value="<?= empty($user->last_name) ? '' : htmlspecialchars($user->last_name, ENT_QUOTES, 'UTF-8') ?>" class="form-control" placeholder="Enter Last Name" >
+                                <input id="last_name" name="last_name" type="text" value="<?= cleanValue($user->last_name) ?>" class="form-control" placeholder="Enter Last Name" >
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
@@ -54,7 +54,7 @@ $currentGroups = $data['currentGroups'];
                     </div>
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input required type="text" class="form-control" id="username" name="username" value="<?= empty($user->username) ? '' : htmlspecialchars($user->username, ENT_QUOTES, 'UTF-8') ?>" placeholder="Username">
+                        <input required type="text" class="form-control" id="username" name="username" value="<?= cleanValue($user->username) ?>" placeholder="Username">
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -64,7 +64,7 @@ $currentGroups = $data['currentGroups'];
                     </div>
                     <div class="form-group">
                         <label for="email">Email address</label>
-                        <input required type="email" class="form-control" id="email" name="email" value="<?= empty($user->email) ? '' : htmlspecialchars($user->email, ENT_QUOTES, 'UTF-8') ?>" placeholder="Enter Email address">
+                        <input required type="email" class="form-control" id="email" name="email" value="<?= cleanValue($user->email) ?>" placeholder="Enter Email address">
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -74,7 +74,7 @@ $currentGroups = $data['currentGroups'];
                     </div>
                     <div class="form-group">
                         <label for="company">Company or Organization</label>
-                        <input required type="text" class="form-control" id="company" name="company" value="<?= empty($user->company) ? '' : htmlspecialchars($user->company, ENT_QUOTES, 'UTF-8') ?>" placeholder="Enter Company or Organization">
+                        <input required type="text" class="form-control" id="company" name="company" value="<?= cleanValue($user->company) ?>" placeholder="Enter Company or Organization">
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -84,7 +84,7 @@ $currentGroups = $data['currentGroups'];
                     </div>
                     <div class="form-group">
                         <label for="phone">Phone</label>
-                        <input type="tel" name="phone" id="phone" class="form-control" value="<?= empty($user->phone) ? '' : htmlspecialchars($user->phone, ENT_QUOTES, 'UTF-8') ?>" placeholder="0812XXXXXXXX">
+                        <input type="tel" name="phone" id="phone" class="form-control" value="<?= cleanValue($user->phone) ?>" placeholder="0812XXXXXXXX">
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -135,7 +135,7 @@ $currentGroups = $data['currentGroups'];
                                 }
                                 ?>
                                 <input class="form-check-input" type="checkbox" name="groups[]" value="<?php echo $group['id'];?>"<?php echo $checked;?>>
-                                <label class="form-check-label"><?php echo htmlspecialchars($group['name'], ENT_QUOTES, 'UTF-8');?></label>
+                                <label class="form-check-label"><?php echo cleanValue($group['name']);?></label>
                             </div>
                         <?php endforeach?>
                         </div>
