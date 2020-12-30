@@ -9,17 +9,37 @@ use App\Models\Admin\M_Settings;
 
 class Dashboard extends AdminController
 {
+	/**
+	 * ResponseTrait
+	 *
+	 * @var CodeIgniter\Api\ResponseTrait
+	 */
 	use ResponseTrait;
+
+	/**
+	 * Current User Data
+	 *
+	 * @var App\Controllers\Admin\AdminController::getCurrentUserData
+	 */
+	private $currentUserData;
+	
+	 /**
+	 * Constructor
+	 *
+	 * @return void
+	 */
+	public function __construct()
+	{
+		$this->currentUserData = parent::getCurrentUserData();
+	}
 
 	public function index()
 	{
-		$currentUserData = parent::geCurrentUserData();
-
 		$site_data = array(
 			'appName' => 'Admin Panel',
 			'pageTitle' => 'User List',
 			'contentTitle' => 'Content Title',
-			'authFullname' => $currentUserData['username'],
+			'authFullname' => $this->currentUserData['username'],
 			'contentView' => null,
 			'actionUrl' => '#',
 			'backWardUrl' => '#',

@@ -2,6 +2,7 @@
 namespace App\Controllers\Admin;
 
 use CodeIgniter\API\ResponseTrait;
+use CodeIgniter\Config\Services;
 
 use App\Controllers\Admin\AdminController;
 use App\Models\Admin\M_Settings;
@@ -55,8 +56,8 @@ class Settings extends AdminController
     {
         $this->ionAuth = new IonAuth();	
         $this->m_settings = new M_Settings();
-        $this->currentUserData = parent::geCurrentUserData();
-        $this->validation = \Config\Services::validation();
+        $this->currentUserData = parent::getCurrentUserData();
+        $this->validation = Services::validation();
     }
 
     /**

@@ -3,6 +3,7 @@
 use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\Config\Services;
 
 use App\Controllers\Admin\AdminController;
 use App\Libraries\Datatabel;
@@ -11,7 +12,19 @@ use IonAuth\Libraries\IonAuth;
 
 class UserGroups extends AdminController
 {
+	/**
+	 * ResponseTrait
+	 *
+	 * @var CodeIgniter\Api\ResponseTrait
+	 */
 	use ResponseTrait;
+
+	/**
+	 * Current User Data
+	 *
+	 * @var App\Controllers\Admin\AdminController::getCurrentUserData
+	 */
+	private $currentUserData;
 
 	/**
 	 * IonAuth library
@@ -43,7 +56,8 @@ class UserGroups extends AdminController
 	public function __construct()
 	{
 		$this->ionAuth = new IonAuth();	
-		$this->validation = \Config\Services::validation();
+		$this->validation = Services::validation();
+		$this->currentUserData = parent::getCurrentUserData();
 		$configIonAuth = config('IonAuth');
 		if (! empty($configIonAuth->templates['errors']['list']))
 		{
@@ -58,13 +72,11 @@ class UserGroups extends AdminController
 	 */
 	public function index()
 	{
-		$currentUserData = parent::geCurrentUserData();
-
 		$site_data = array(
 			'appName' => 'Admin Panel',
 			'pageTitle' => 'User Groups',
 			'contentTitle' => 'Group',
-			'authFullname' => $currentUserData['username'],
+			'authFullname' => $this->currentUserData['username'],
 			'contentView' => null,
 			'actionUrl' => '#',
 			'backWardUrl' => '#',
@@ -167,13 +179,11 @@ class UserGroups extends AdminController
 	public function add()
 	{
 		if (!$this->request->getPost()) {
-			$currentUserData = parent::geCurrentUserData();
-
 			$site_data = array(
 				'appName' => 'Admin Panel',
 				'pageTitle' => 'Add New Group',
 				'contentTitle' => 'Group',
-				'authFullname' => $currentUserData['username'],
+				'authFullname' => $this->currentUserData['username'],
 				'contentView' => null,
 				'actionUrl' => adminURL('admin/usergroups/add'),
 				'backWardUrl' => adminURL('admin/usergroups'),
@@ -218,13 +228,11 @@ class UserGroups extends AdminController
 		$group = $this->ionAuth->group($id)->row();
 
 		if (!$this->request->getPost()) {
-			$currentUserData = parent::geCurrentUserData();
-
 			$site_data = array(
 				'appName' => 'Admin Panel',
 				'pageTitle' => 'Edit Group',
 				'contentTitle' => 'Group',
-				'authFullname' => $currentUserData['username'],
+				'authFullname' => $this->currentUserData['username'],
 				'contentView' => null,
 				'actionUrl' => adminURL('admin/usergroups/edit/'.$id),
 				'backWardUrl' => adminURL('admin/usergroups'),

@@ -16,8 +16,6 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 
-use \Config\Database;
-
 use CodeIgniter\Config\Services;
 use CodeIgniter\API\ResponseTrait;
 
@@ -64,24 +62,18 @@ class AdminController extends BaseController
 		return $this->respond($this->vars, 200);
     }
     
-    protected function geCurrentUserData()
+    protected function getCurrentUserData()
 	{
 		$auth = Services::auth();
-		$current_userId = $auth->getUserId();
+		// $current_userId = $auth->getUserId();
 
-		$db = Database::connect();
-        $builder = $db->table('users');
-
-        $builder->select('*');
-        $builder->where('id', $current_userId);
-        $query = $builder->get();
-		$result = $query->getRowArray();
+		$userData = $auth->user()->row();
 		
-		$data = [
-			'username' => $result['username'],
-			'first_name' => $result['first_name'],
-			'last_name' => $result['last_name']
-		];
+		$data = array(
+			'username' => $userData->username,
+			'first_name' => $userData->first_name,
+			'last_name' => $userData->last_name
+		);
 
         return $data;
 	}
