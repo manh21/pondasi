@@ -30,7 +30,7 @@
 		"source": "https://github.com/codeigniter4/CodeIgniter4",
 		"slack": "https://codeigniterchat.slack.com"
 	},
-	"minimum-stability": "dev",
+	"minimum-stability": "stable",
 	"repositories": {
 		"ionAuth": {
 			"type": "vcs",
