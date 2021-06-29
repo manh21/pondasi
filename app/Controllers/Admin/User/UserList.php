@@ -56,10 +56,10 @@ class UserList extends AdminController
 		$this->ionAuth = new IonAuth();	
 		$this->validation = Services::validation();
 		$this->currentUserData = parent::getCurrentUserData();
-		$configIonAuth = config('IonAuth');
-		if (! empty($configIonAuth->templates['errors']['list']))
+		$this->configIonAuth = config('IonAuth');
+		if (! empty($this->configIonAuth->templates['errors']['list']))
 		{
-			$this->validationListTemplate = $configIonAuth->templates['errors']['list'];
+			$this->validationListTemplate = $this->configIonAuth->templates['errors']['list'];
 		}
 	}
 	
