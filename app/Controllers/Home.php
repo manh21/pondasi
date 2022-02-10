@@ -17,10 +17,10 @@ class Home extends BaseController
     {
 		$dataTable = new Datatabel('users');
 		$dataTable->addDtNumberHandler();
-		$dataTable->addDtDb(1, 'username', true, true);
-		$dataTable->addDtDb(2, 'first_name', true, true);
-		$dataTable->addDtDb(3, 'last_name', true, true);
-		$dataTable->addDtDb(4, 'id', false, false);
+		$dataTable->addDtDb(1, 'username', true, true, false);
+		$dataTable->addDtDb(2, 'first_name', true, true, false);
+		$dataTable->addDtDb(3, 'last_name', true, true, false);
+		$dataTable->addDtDb(4, 'id', false, false, false);
 		return $this->responeDataTable($dataTable);
     }
 
