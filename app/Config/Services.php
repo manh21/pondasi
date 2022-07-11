@@ -1,6 +1,6 @@
 <?php namespace Config;
 
-use CodeIgniter\Config\Services as CoreServices;
+use CodeIgniter\Config\BaseService;
 
 use \IonAuth\Libraries\IonAuth;
 
@@ -17,16 +17,15 @@ use \IonAuth\Libraries\IonAuth;
  * method format you should use for your service methods. For more examples,
  * see the core Services file at system/Config/Services.php.
  */
-class Services extends CoreServices
+class Services extends BaseService
 {
+	public static function auth($getShared = true)
+	{
+		if ($getShared)
+		{
+			return static::getSharedInstance('auth');
+		}
 
-	   public static function auth($getShared = true)
-	   {
-	       if ($getShared)
-	       {
-	           return static::getSharedInstance('auth');
-	       }
-	
-	       return new IonAuth();
-	   }
+		return new IonAuth();
+	}
 }

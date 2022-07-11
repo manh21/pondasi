@@ -12,7 +12,8 @@
 	"require-dev": {
 		"fzaninotto/faker": "^1.9@dev",
 		"mikey179/vfsstream": "1.6.*",
-		"phpunit/phpunit": "^8.5"
+		"phpunit/phpunit": "^8.5",
+		"tatter/patches": "^2.0"
 	},
 	"autoload-dev": {
 		"psr-4": {
